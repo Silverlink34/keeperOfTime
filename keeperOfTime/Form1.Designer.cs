@@ -49,6 +49,7 @@
             this.txtLunchOut = new System.Windows.Forms.MaskedTextBox();
             this.txtClockOut = new System.Windows.Forms.MaskedTextBox();
             this.txtHours = new System.Windows.Forms.MaskedTextBox();
+            this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -95,9 +96,10 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.manualEntryToolStripMenuItem,
+            this.resetToolStripMenuItem,
             this.importToolStripMenuItem,
-            this.exportToolStripMenuItem,
-            this.manualEntryToolStripMenuItem});
+            this.exportToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -189,6 +191,8 @@
             this.txtClockIn.TabIndex = 16;
             this.txtClockIn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtClockIn.ValidatingType = typeof(System.DateTime);
+            this.txtClockIn.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.txtClockIn_MaskInputRejected);
+            this.txtClockIn.TextChanged += new System.EventHandler(this.txtClockIn_TextChanged);
             // 
             // txtLunchIn
             // 
@@ -232,6 +236,12 @@
             this.txtHours.Size = new System.Drawing.Size(45, 20);
             this.txtHours.TabIndex = 20;
             this.txtHours.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // resetToolStripMenuItem
+            // 
+            this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.resetToolStripMenuItem.Text = "Reset";
             // 
             // Form1
             // 
@@ -288,6 +298,7 @@
         private System.Windows.Forms.MaskedTextBox txtLunchOut;
         private System.Windows.Forms.MaskedTextBox txtClockOut;
         private System.Windows.Forms.MaskedTextBox txtHours;
+        private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
     }
 }
 

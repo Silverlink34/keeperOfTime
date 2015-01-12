@@ -82,5 +82,17 @@ namespace keeperOfTime.Properties {
                 this["DoneBtnClicked"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ManualClicked {
+            get {
+                return ((bool)(this["ManualClicked"]));
+            }
+            set {
+                this["ManualClicked"] = value;
+            }
+        }
     }
 }

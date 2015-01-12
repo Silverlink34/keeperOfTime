@@ -70,11 +70,12 @@ namespace keeperOfTime
             txtLunchIn.ReadOnly = false;
             txtLunchOut.ReadOnly = false;
 
-            btnDone.Visible = true;
+            Properties.Settings.Default.ManualClicked = true;
         }
 
         private void btnDone_Click(object sender, EventArgs e)
         {
+            Properties.Settings.Default.ManualClicked = false;
             Properties.Settings.Default.DoneBtnClicked = true;
             Properties.Settings.Default.Save();
 
@@ -137,6 +138,24 @@ namespace keeperOfTime
         private void button1_Click(object sender, EventArgs e)
         {
             MessageBox.Show(Properties.Settings.Default.ClockOutBtn.ToString());
+        }
+
+        private void txtClockIn_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+
+        }
+
+        private void txtClockIn_TextChanged(object sender, EventArgs e)
+        {
+            if (txtClockIn.MaskCompleted.Equals(true) && Properties.Settings.Default.ManualClicked == true) 
+            {
+                btnDone.Visible = true;
+            }
+
+            else if (txtClockIn.MaskCompleted.Equals(false))
+            {
+                btnDone.Visible = false;
+            }
         }
     }
 }
