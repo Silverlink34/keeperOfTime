@@ -41,7 +41,7 @@ namespace keeperOfTime
 
         private void btnLunch_Click(object sender, EventArgs e)
         {
-            if (txtClockIn.MaskCompleted.Equals(true))
+            if (txtClockIn.MaskCompleted.Equals(true) || Properties.Settings.Default.ManualClicked == true)
             {
                 string lunchIn = DateTime.Now.ToString("HH:mm");
                 txtLunchIn.Text = lunchIn;
@@ -96,7 +96,7 @@ namespace keeperOfTime
 
         private void btnOut_Click(object sender, EventArgs e)
         {
-            if (txtLunchOut.MaskCompleted.Equals(true))
+            if (txtLunchOut.MaskCompleted.Equals(true) || Properties.Settings.Default.ManualClicked == true)
                 {
                     string clockOutTime = DateTime.Now.ToString("HH:mm");
                     txtClockOut.Text = clockOutTime;
@@ -212,7 +212,7 @@ namespace keeperOfTime
             {
                 btnLunch.Enabled = false;
             }
-            else if (txtClockIn.MaskCompleted.Equals(false))
+            else if (txtClockIn.MaskCompleted.Equals(false) && txtLunchOut.MaskCompleted.Equals(true))
             {
                 btnLunch.Enabled = true;
             }
