@@ -25,41 +25,16 @@ namespace keeperOfTime
             Properties.Settings.Default.DoneBtnClicked = false;
             Properties.Settings.Default.Save();
 
-            while (true)
-            {
-                if (txtClockIn.MaskCompleted.Equals(true))
-                {
-                    btnIn.Enabled = false;
-                }
-
-                else if (txtClockIn.MaskCompleted.Equals(false)) 
-                {
-                    btnIn.Enabled = true;
-                }
-
-
-                if (txtLunchIn.MaskCompleted.Equals(true) && txtLunchOut.MaskCompleted.Equals(true))
-                {
-                    btnLunch.Enabled = false;
-                }
-                else if (txtLunchIn.MaskCompleted.Equals(false) && txtLunchOut.MaskCompleted.Equals(false))
-                {
-                    btnLunch.Enabled = false;
-                }
-
-
-
-                if (txtClockOut.MaskCompleted.Equals(true))
-                {
-                    btnOut.Enabled = false;
-                }
-            }
+            daCal.
 
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            while ()
+            {
+                btnIn.Enabled = false;
+            }
         }
 
         private void btnIn_Click(object sender, EventArgs e)
@@ -131,8 +106,6 @@ namespace keeperOfTime
 
             Properties.Settings.Default.ClockOutBtn = false;
             Properties.Settings.Default.Save();
-
-            btnOut.Enabled = false;
 
             DateTime startTime = Convert.ToDateTime(txtClockIn.Text);
             DateTime endTimes = Convert.ToDateTime(txtClockOut.Text);
