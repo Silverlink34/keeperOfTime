@@ -191,7 +191,6 @@
             this.txtClockIn.TabIndex = 16;
             this.txtClockIn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtClockIn.ValidatingType = typeof(System.DateTime);
-            this.txtClockIn.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.txtClockIn_MaskInputRejected);
             this.txtClockIn.TextChanged += new System.EventHandler(this.txtClockIn_TextChanged);
             // 
             // txtLunchIn
@@ -204,6 +203,7 @@
             this.txtLunchIn.TabIndex = 17;
             this.txtLunchIn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtLunchIn.ValidatingType = typeof(System.DateTime);
+            this.txtLunchIn.TextChanged += new System.EventHandler(this.txtLunchIn_TextChanged);
             // 
             // txtLunchOut
             // 
@@ -215,6 +215,7 @@
             this.txtLunchOut.TabIndex = 18;
             this.txtLunchOut.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtLunchOut.ValidatingType = typeof(System.DateTime);
+            this.txtLunchOut.TextChanged += new System.EventHandler(this.txtLunchOut_TextChanged);
             // 
             // txtClockOut
             // 
@@ -226,6 +227,7 @@
             this.txtClockOut.TabIndex = 19;
             this.txtClockOut.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtClockOut.ValidatingType = typeof(System.DateTime);
+            this.txtClockOut.TextChanged += new System.EventHandler(this.txtClockOut_TextChanged);
             // 
             // txtHours
             // 

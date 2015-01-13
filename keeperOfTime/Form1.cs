@@ -18,14 +18,42 @@ namespace keeperOfTime
             InitializeComponent();
 
             btnDone.Visible = false;
-            btnLunch.Enabled = false;
-            btnOut.Enabled = false;
 
             Properties.Settings.Default.ClockOutBtn = true;
             Properties.Settings.Default.Save();
 
             Properties.Settings.Default.DoneBtnClicked = false;
             Properties.Settings.Default.Save();
+
+            while (true)
+            {
+                if (txtClockIn.MaskCompleted.Equals(true))
+                {
+                    btnIn.Enabled = false;
+                }
+
+                else if (txtClockIn.MaskCompleted.Equals(false)) 
+                {
+                    btnIn.Enabled = true;
+                }
+
+
+                if (txtLunchIn.MaskCompleted.Equals(true) && txtLunchOut.MaskCompleted.Equals(true))
+                {
+                    btnLunch.Enabled = false;
+                }
+                else if (txtLunchIn.MaskCompleted.Equals(false) && txtLunchOut.MaskCompleted.Equals(false))
+                {
+                    btnLunch.Enabled = false;
+                }
+
+
+
+                if (txtClockOut.MaskCompleted.Equals(true))
+                {
+                    btnOut.Enabled = false;
+                }
+            }
 
         }
 
@@ -39,21 +67,23 @@ namespace keeperOfTime
             string clockInTime = DateTime.Now.ToString("HH:mm");
             txtClockIn.Text = clockInTime;
 
-            txtClockIn.Text = clockInTime;
-
-            btnIn.Enabled = false;
-            btnLunch.Enabled = true;
         }
 
         private void btnLunch_Click(object sender, EventArgs e)
         {
-            string lunchIn = DateTime.Now.ToString("HH:mm");
-            txtLunchIn.Text = lunchIn;
-            string lunchOut = DateTime.Now.AddHours(1).ToString("HH:mm");
-            txtLunchOut.Text = lunchOut;
+            if (txtClockIn.MaskCompleted.Equals(true))
+            {
+                string lunchIn = DateTime.Now.ToString("HH:mm");
+                txtLunchIn.Text = lunchIn;
+                string lunchOut = DateTime.Now.AddHours(1).ToString("HH:mm");
+                txtLunchOut.Text = lunchOut;
+            }
 
-            btnLunch.Enabled = false;
-            btnOut.Enabled = true;
+            
+            else 
+            {
+                MessageBox.Show("You must clock in first... Hungry, are you?");
+            }
 
         }
 
@@ -65,12 +95,13 @@ namespace keeperOfTime
 
         private void manualEntryToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Properties.Settings.Default.ManualClicked = true;
+            seeIfValid();
+
             txtClockIn.ReadOnly = false;
             txtClockOut.ReadOnly = false;
             txtLunchIn.ReadOnly = false;
             txtLunchOut.ReadOnly = false;
-
-            Properties.Settings.Default.ManualClicked = true;
         }
 
         private void btnDone_Click(object sender, EventArgs e)
@@ -117,22 +148,22 @@ namespace keeperOfTime
 
         private void btnEndShift_Click(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.ClockOutBtn == false)
-            
-            {
-                MessageBox.Show("Shift ended");
-            }
+            if (txtClockIn.MaskCompleted.Equals(true) &&
+                txtLunchIn.MaskCompleted.Equals(true) &&
+                txtClockOut.MaskCompleted.Equals(true) &&
+                txtLunchOut.MaskCompleted.Equals(true))
+                    {
+                        MessageBox.Show("Shift ended and exprted to current date in spreadsheet");
+                    }
 
-            else if (Properties.Settings.Default.ClockOutBtn == true)
-            {
-                MessageBox.Show("Must have valid time submitted in all fields to end shift.");
-            }
-
-            else
- 
-            {
-                MessageBox.Show("Something weird happened... Well... moving on then.");
-            }
+            else if (txtClockIn.MaskCompleted.Equals(false) ||
+                     txtLunchIn.MaskCompleted.Equals(false) ||
+                     txtClockOut.MaskCompleted.Equals(false) ||
+                     txtLunchOut.MaskCompleted.Equals(false) ||
+                     Properties.Settings.Default.ManualClicked.Equals(true))
+                {
+                    MessageBox.Show("Enter a valid time in all fields");
+                }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -140,22 +171,46 @@ namespace keeperOfTime
             MessageBox.Show(Properties.Settings.Default.ClockOutBtn.ToString());
         }
 
-        private void txtClockIn_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        public void seeIfValid() 
         {
+            if (txtClockIn.MaskCompleted.Equals(true) &&
+                txtLunchIn.MaskCompleted.Equals(true) &&
+                txtClockOut.MaskCompleted.Equals(true) &&
+                txtLunchOut.MaskCompleted.Equals(true) &&
+                Properties.Settings.Default.ManualClicked.Equals(true))
+                    {
+                        btnDone.Visible = true;
+                    }
 
+            else if (txtClockIn.MaskCompleted.Equals(false) ||
+                     txtLunchIn.MaskCompleted.Equals(false) ||
+                     txtClockOut.MaskCompleted.Equals(false) ||
+                     txtLunchOut.MaskCompleted.Equals(false) ||
+                     Properties.Settings.Default.ManualClicked.Equals(true))
+                        {
+                            btnDone.Visible = false;
+                        }
         }
 
         private void txtClockIn_TextChanged(object sender, EventArgs e)
         {
-            if (txtClockIn.MaskCompleted.Equals(true) && Properties.Settings.Default.ManualClicked == true) 
-            {
-                btnDone.Visible = true;
-            }
-
-            else if (txtClockIn.MaskCompleted.Equals(false))
-            {
-                btnDone.Visible = false;
-            }
+            seeIfValid();
         }
+
+        private void txtLunchIn_TextChanged(object sender, EventArgs e)
+        {
+            seeIfValid();
+        }
+
+        private void txtClockOut_TextChanged(object sender, EventArgs e)
+        {
+            seeIfValid();
+        }
+
+        private void txtLunchOut_TextChanged(object sender, EventArgs e)
+        {
+            seeIfValid();
+        }
+
     }
 }
