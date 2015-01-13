@@ -25,16 +25,11 @@ namespace keeperOfTime
             Properties.Settings.Default.DoneBtnClicked = false;
             Properties.Settings.Default.Save();
 
-            daCal.
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            while ()
-            {
-                btnIn.Enabled = false;
-            }
+
         }
 
         private void btnIn_Click(object sender, EventArgs e)
@@ -101,21 +96,27 @@ namespace keeperOfTime
 
         private void btnOut_Click(object sender, EventArgs e)
         {
-            string clockOutTime = DateTime.Now.ToString("HH:mm");
-            txtClockOut.Text = clockOutTime;
+            if (txtLunchOut.MaskCompleted.Equals(true))
+                {
+                    string clockOutTime = DateTime.Now.ToString("HH:mm");
+                    txtClockOut.Text = clockOutTime;
 
-            Properties.Settings.Default.ClockOutBtn = false;
-            Properties.Settings.Default.Save();
+                    Properties.Settings.Default.ClockOutBtn = false;
+                    Properties.Settings.Default.Save();
 
-            DateTime startTime = Convert.ToDateTime(txtClockIn.Text);
-            DateTime endTimes = Convert.ToDateTime(txtClockOut.Text);
-            TimeSpan hours = startTime - endTimes;
-            TimeSpan hoursGross = TimeSpan.FromHours(1);
+                    DateTime startTime = Convert.ToDateTime(txtClockIn.Text);
+                    DateTime endTimes = Convert.ToDateTime(txtClockOut.Text);
+                    TimeSpan hours = startTime - endTimes;
+                    TimeSpan hoursGross = TimeSpan.FromHours(1);
 
-            //string hoursGross2 = hoursGross.ToString("hh:mm");
+                    //string hoursGross2 = hoursGross.ToString("hh:mm");
 
-            txtHours.Text = hoursGross.TotalHours.ToString();
-
+                    txtHours.Text = hoursGross.TotalHours.ToString();
+                }
+            else if (txtLunchOut.MaskCompleted.Equals(false))
+            {
+                MessageBox.Show("You must finidh lunch first. I know, you want to leave...");
+            }
 
         }
 
@@ -168,21 +169,53 @@ namespace keeperOfTime
         private void txtClockIn_TextChanged(object sender, EventArgs e)
         {
             seeIfValid();
+            if (txtClockIn.MaskCompleted.Equals(true)) 
+            {
+                btnIn.Enabled = false;
+            }
+            else if (txtClockIn.MaskCompleted.Equals(false)) 
+            {
+                btnIn.Enabled = true;
+            }
         }
 
         private void txtLunchIn_TextChanged(object sender, EventArgs e)
         {
             seeIfValid();
+            if (txtClockIn.MaskCompleted.Equals(true) && txtLunchOut.MaskCompleted.Equals(true))
+            {
+                btnLunch.Enabled = false;
+            }
+            else if (txtClockIn.MaskCompleted.Equals(false))
+            {
+                btnLunch.Enabled = true;
+            }
         }
 
         private void txtClockOut_TextChanged(object sender, EventArgs e)
         {
             seeIfValid();
+            if (txtClockOut.MaskCompleted.Equals(true))
+            {
+                btnOut.Enabled = false;
+            }
+            else if (txtClockOut.MaskCompleted.Equals(false))
+            {
+                btnOut.Enabled = true;
+            }
         }
 
         private void txtLunchOut_TextChanged(object sender, EventArgs e)
         {
             seeIfValid();
+            if (txtClockIn.MaskCompleted.Equals(true) && txtLunchOut.MaskCompleted.Equals(true))
+            {
+                btnLunch.Enabled = false;
+            }
+            else if (txtClockIn.MaskCompleted.Equals(false))
+            {
+                btnLunch.Enabled = true;
+            }
         }
 
     }
