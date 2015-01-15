@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
+using GemBox.Spreadsheet;
 
 namespace keeperOfTime
 {
@@ -24,6 +25,8 @@ namespace keeperOfTime
 
             Properties.Settings.Default.DoneBtnClicked = false;
             Properties.Settings.Default.Save();
+
+            SpreadsheetInfo.SetLicense("FREE-LIMITED-KEY");
 
         }
 
@@ -128,6 +131,16 @@ namespace keeperOfTime
                 txtLunchOut.MaskCompleted.Equals(true))
                     {
                         MessageBox.Show("Shift ended and exprted to current date in spreadsheet");
+                        //string xfPath = System.Environment.CurrentDirectory;
+                        string xfPath = "C:\\Users\\bryan.jones\\Desktop\\storage";
+
+                        //MessageBox.Show(xfPath);
+                        ExcelFile xf = ExcelFile.Load(xfPath + "\\test.xlsx");
+                xf.Worksheets.ActiveWorksheet.Cells["C3"].Value = txtClockIn.Text;
+                        xf.Save(xfPath + DateTime.Today.ToString("HH:mm") + ".xlsx");
+                        
+
+                        //ExcelFile.Load();
                     }
 
             else if (txtClockIn.MaskCompleted.Equals(false) ||
