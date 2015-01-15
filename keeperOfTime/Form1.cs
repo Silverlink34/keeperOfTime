@@ -182,11 +182,11 @@ namespace keeperOfTime
         private void txtLunchIn_TextChanged(object sender, EventArgs e)
         {
             seeIfValid();
-            if (txtClockIn.MaskCompleted.Equals(true) && txtLunchOut.MaskCompleted.Equals(true))
+            if (txtLunchIn.MaskCompleted.Equals(true) && txtLunchOut.MaskCompleted.Equals(true))
             {
                 btnLunch.Enabled = false;
             }
-            else if (txtClockIn.MaskCompleted.Equals(false))
+            else if (txtLunchIn.MaskCompleted.Equals(false) || txtLunchOut.MaskCompleted.Equals(false))
             {
                 btnLunch.Enabled = true;
             }
@@ -208,11 +208,11 @@ namespace keeperOfTime
         private void txtLunchOut_TextChanged(object sender, EventArgs e)
         {
             seeIfValid();
-            if (txtClockIn.MaskCompleted.Equals(true) && txtLunchOut.MaskCompleted.Equals(true))
+            if (txtClockIn.MaskCompleted.Equals(true) || txtLunchOut.MaskCompleted.Equals(true))
             {
                 btnLunch.Enabled = false;
             }
-            else if (txtClockIn.MaskCompleted.Equals(false) && txtLunchOut.MaskCompleted.Equals(true))
+            else if (txtClockIn.MaskCompleted.Equals(false) || txtLunchOut.MaskCompleted.Equals(true))
             {
                 btnLunch.Enabled = true;
             }
