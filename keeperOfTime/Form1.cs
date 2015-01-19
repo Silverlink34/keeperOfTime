@@ -118,7 +118,7 @@ namespace keeperOfTime
                 }
             else if (txtLunchOut.MaskCompleted.Equals(false))
             {
-                MessageBox.Show("You must finidh lunch first. I know, you want to leave...");
+                MessageBox.Show("You must finish lunch first. I know, you want to leave...");
             }
 
         }
@@ -132,12 +132,19 @@ namespace keeperOfTime
                     {
                         MessageBox.Show("Shift ended and exprted to current date in spreadsheet");
                         //string xfPath = System.Environment.CurrentDirectory;
-                        string xfPath = "C:\\Users\\bryan.jones\\Desktop\\storage";
+                        string xfPath = "C:\\Users\\bryan.jones\\Desktop\\storage\\";
 
                         //MessageBox.Show(xfPath);
-                        ExcelFile xf = ExcelFile.Load(xfPath + "\\test.xlsx");
-                xf.Worksheets.ActiveWorksheet.Cells["C3"].Value = txtClockIn.Text;
-                        xf.Save(xfPath + DateTime.Today.ToString("HH:mm") + ".xlsx");
+                        ExcelFile xf = ExcelFile.Load(xfPath + "\\template.xltx");
+                        //ExcelFile.Load(,)
+                        
+                        xf.Worksheets.ActiveWorksheet.Cells["C13"].Value = DateTime.Now.ToString("MM/dd/yyy");
+                        xf.Worksheets.ActiveWorksheet.Cells["C3"].Value = txtClockIn.Text;
+
+                        string currDate = DateTime.Today.ToString("MM.dd.yyyy");
+                        string savePath = xfPath + currDate + ".xlsx";
+
+                        xf.Save(savePath);
                         
 
                         //ExcelFile.Load();
